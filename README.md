@@ -1,4 +1,4 @@
 aCal
 ====
 
-Android CalenderView
+Custom Android CalenderView
