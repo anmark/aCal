@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
@@ -72,21 +73,25 @@ public class CalenderView extends View {
 		*/
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
+		paint.setTextAlign(Align.CENTER);
 	
 		
 		
 		//Bitmap b = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
 		
-		canvas.drawBitmap(bitmap, null, new Rect(0,0,getWidth(), getHeight()), paint);
+		canvas.drawBitmap(bitmap, null, new Rect(0,0, canvas.getWidth(), canvas.getHeight()), paint);
 		
-		paint.setTextSize(100);
-		canvas.drawText(getDayName(), canvas.getWidth()*.5f/2f, canvas.getHeight()*.9f, paint);
+		paint.setTextSize((canvas.getWidth()+canvas.getHeight())/18);
+		canvas.drawText(getDayName(), canvas.getWidth()/2f, canvas.getHeight()*.9f, paint);
 	
-		canvas.drawText(getMonthName(), canvas.getWidth()*.7f/2f, canvas.getHeight()*.4f, paint);
+		canvas.drawText(getMonthName(), canvas.getWidth()/2f, canvas.getHeight()*.4f, paint);
 		
-		paint.setTextSize(200);
-		canvas.drawText(Integer.toString(getDayNumber()), canvas.getWidth()*.65f/2f, canvas.getHeight()*.75f, paint);
+		paint.setTextSize((canvas.getWidth()+canvas.getHeight())/10);
+		canvas.drawText(Integer.toString(getDayNumber()), canvas.getWidth()/2f, canvas.getHeight()*.75f, paint);
 		
+		paint.setTextSize((canvas.getWidth()+canvas.getHeight())/14);
+		canvas.rotate(90, canvas.getWidth()*.8f, canvas.getHeight()*.7f);
+		canvas.drawText(Integer.toString(getYear()), canvas.getWidth()*.8f, canvas.getHeight()*.7f, paint);
 		
 
 		//Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.calendar_sheet);
@@ -127,9 +132,11 @@ public class CalenderView extends View {
 
 
 		//
-		//canvas.save();
+		canvas.save();
 		// every save() must be matched with restore()
-		//canvas.restore();
+		canvas.restore();
+		
+		//invalidate();
 
 	}
 	public int getYear(){

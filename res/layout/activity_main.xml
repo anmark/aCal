@@ -8,13 +8,14 @@
         android:id="@+id/calenderView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:onClick="Cal1Clicked" />
 
     <com.anmark.calender.CalenderView
         android:id="@+id/calenderView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:onClick="hej" />
+        android:onClick="Cal2Clicked" />
 
 </LinearLayout>
