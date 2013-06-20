@@ -18,65 +18,63 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		if (savedInstanceState != null){
-			//load values
-			//layout.setOrientation(LinearLayout.VERTICAL);
-		  }
+			//do something
+		}
 		else{
 			layout = new LinearLayout(this);
-		    layout.setBackgroundColor(Color.BLACK);
+			layout.setBackgroundColor(Color.BLACK);
 			layout.setOrientation(LinearLayout.VERTICAL);
 			layout.setLayoutParams(new LinearLayout.LayoutParams(
 					(LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 2.0f));
 			cv3 = new CalenderView(this);
 			cv4 = new CalenderView(this);
-		    cv3.setLayoutParams(new LinearLayout.LayoutParams(
+			cv3.setLayoutParams(new LinearLayout.LayoutParams(
 					(LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 1.0f));
-		    cv4.setLayoutParams(new LinearLayout.LayoutParams(
+			cv4.setLayoutParams(new LinearLayout.LayoutParams(
 					(LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 1.0f));
-		    cv4.setDate(cv4.createCalender(1988, 4, 31));
-		    layout.addView(cv3);
-		    layout.addView(cv4);
+			cv4.setDate(cv4.createCalender(1988, 4, 31));
+			layout.addView(cv3);
+			layout.addView(cv4);
 		}
-		
-		cv1 = (CalenderView)findViewById(R.id.calenderView1);
-		cv2 = (CalenderView)findViewById(R.id.calenderView2);
 
-	    setContentView(layout);    
-	
-        cv3.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-            	cv3.invalidate();
-            	cv3.nextDay();          	
-            }
-        });
-	    
-        cv4.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-            
-            	cv4.nextDay();
-            	cv4.invalidate();
-            }
-        });
-		
+		// activity_main.xml not used 
+		//cv1 = (CalenderView)findViewById(R.id.calenderView1);
+		//cv2 = (CalenderView)findViewById(R.id.calenderView2);
+		//cv2.setDate(cv4.createCalender(1988, 4, 31));
+
+		setContentView(layout);    
+
+		cv3.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				cv3.nextDay();
+			}
+		});
+
+		cv4.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				cv4.nextDay();
+			}
+		});
+
 	}
-	
+
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
-		  super.onSaveInstanceState(savedInstanceState);
-		  //savedInstanceState.putLong("param", value);
+		super.onSaveInstanceState(savedInstanceState);
+		//savedInstanceState.putLong("param", value);
 	}
-	
-	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
 
-	    // Checks the orientation of the screen
-	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-	    	layout.setOrientation(LinearLayout.HORIZONTAL);
-	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-	    	layout.setOrientation(LinearLayout.VERTICAL);
-	    }
-	  }
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+
+		// Checks the orientation of the screen
+		if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			layout.setOrientation(LinearLayout.HORIZONTAL);
+		} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+			layout.setOrientation(LinearLayout.VERTICAL);
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,12 +84,12 @@ public class MainActivity extends Activity {
 	}
 
 	public void Cal1Clicked(View v){
-		System.out.println("cv1");
-		//cv1.invalidate();
-		//cv1.nextDay();
+		// activity_main.xml OnClick not used
+		// cv1.nextDay();
 	}
 
 	public void Cal2Clicked(View v){
-		System.out.println("cv2");
+		// activity_main.xml OnClick not used
+		// cv2.nextDay();
 	}
 }

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
@@ -20,24 +21,8 @@ public class CalenderView extends View {
 	private Paint paint;
 
 	public CalenderView(Context context) {
-		super(context);
-		
+		super(context);	
 		init();
-		
-		/*
-		System.out.println(getYear());
-		System.out.println(getMonthName());
-		System.out.println(getDayName());
-		System.out.println(getDayNumber());
-
-		setDate(createCalender(2000, 1, 30));
-
-		System.out.println("");
-		System.out.println(getYear());
-		System.out.println(getMonthName());
-		System.out.println(getDayName());
-		System.out.println(getDayNumber());
-		 */
 	}
 
 	public CalenderView(Context context, AttributeSet attrs) {
@@ -53,46 +38,41 @@ public class CalenderView extends View {
 	private void init() {
 		//TODO:
 		cal = Calendar.getInstance();
-		
-		//this.setBackgroundResource(R.drawable.calendar_sheet);
 	}
 
-
-	@SuppressWarnings("deprecation")
 	@SuppressLint("DrawAllocation")
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.calendar_sheet);
-		//canvas.drawColor(Color.WHITE);
 
-		/*
-		Paint p = new Paint();
-		p.setAntiAlias(true);
-		p.setTextSize(24);
-		*/
+		// Fetch mutable bitmap from drawable resource
+		Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.calendar_sheet);
+
+		// Setup paint
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setTextAlign(Align.CENTER);
-	
-		
-		
-		//Bitmap b = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
-		
+
+		//Draw background bitmap
 		canvas.drawBitmap(bitmap, null, new Rect(0,0, canvas.getWidth(), canvas.getHeight()), paint);
-		
+
+		//Draw black bottom day name
 		paint.setTextSize((canvas.getWidth()+canvas.getHeight())/18);
 		canvas.drawText(getDayName(), canvas.getWidth()/2f, canvas.getHeight()*.9f, paint);
-	
+
+		//Draw top white month name
+		paint.setColor(Color.WHITE);
 		canvas.drawText(getMonthName(), canvas.getWidth()/2f, canvas.getHeight()*.4f, paint);
-		
+
+		//Draw black center date
+		paint.setColor(Color.BLACK);
 		paint.setTextSize((canvas.getWidth()+canvas.getHeight())/10);
 		canvas.drawText(Integer.toString(getDayNumber()), canvas.getWidth()/2f, canvas.getHeight()*.75f, paint);
-		
+
+		//Draw black vertical right year
 		paint.setTextSize((canvas.getWidth()+canvas.getHeight())/14);
 		canvas.rotate(90, canvas.getWidth()*.8f, canvas.getHeight()*.7f);
 		canvas.drawText(Integer.toString(getYear()), canvas.getWidth()*.8f, canvas.getHeight()*.7f, paint);
-		
 
 		//Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.calendar_sheet);
 		//canvas.drawBitmap(bitmap, canvas.getMatrix(), paint);
@@ -115,29 +95,19 @@ public class CalenderView extends View {
 
 		//canvas.drawBitmap(bitmap, 0, 0, null);
 
-
 		//canvas.drawBitmap(bitmap,  bitmap.getWidth() - (bitmap.getWidth() / 2), bitmap.getHeight() - (bitmap.getHeight() / 2), null);
-
 
 		//canvas.drawBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), paint);
 
 		//canvas.drawBitmap(bitmap);
 
-
-		//paint.setStyle(Paint.Style.FILL);
-		//turn antialiasing on
-		//paint.setAntiAlias(true);
-		//paint.setTextSize(30);
-		//canvas.drawText(cal.toString(), 75, 110, paint);
-
-
-		//
-		canvas.save();
-		// every save() must be matched with restore()
-		canvas.restore();
+		// Save canvas state
+		//canvas.save();
+		// Every save() must be matched with restore()
+		//canvas.restore();
 		
-		//invalidate();
-
+		// Best practice to invalidate here?
+		postInvalidate();
 	}
 	public int getYear(){
 		Integer year = cal.get(Calendar.YEAR);
@@ -166,7 +136,7 @@ public class CalenderView extends View {
 	public void setDate(Calendar cal){
 		this.cal = cal;
 	}
-	
+
 	public Calendar createCalender(int year, int month, int day) {
 		Calendar newCal = Calendar.getInstance();
 		newCal.set(Calendar.YEAR, year);
@@ -174,8 +144,8 @@ public class CalenderView extends View {
 		newCal.set(Calendar.DAY_OF_MONTH, day);
 		return newCal;
 	}
-	
-	
+
+
 	/*
 	/**
 	 * Converts a immutable bitmap to a mutable bitmap. This operation doesn't allocates
@@ -229,7 +199,7 @@ public class CalenderView extends View {
 
 		return imgIn;
 	}
-	*/
+	 */
 }
 
 
