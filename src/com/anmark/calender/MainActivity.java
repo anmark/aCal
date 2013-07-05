@@ -1,5 +1,7 @@
 package com.anmark.calender;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -29,20 +31,33 @@ public class MainActivity extends Activity {
 					(LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 2.0f));
 			cv3 = new CalenderView(this);
 			cv4 = new CalenderView(this);
-			cv3.setLayoutParams(new LinearLayout.LayoutParams(
-					(LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 1.0f));
-			cv4.setLayoutParams(new LinearLayout.LayoutParams(
-					(LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 1.0f));
+			
+			cv3.setLayoutParams(new LayoutParams(150, 330));
+			cv4.setLayoutParams(new LayoutParams(300, 110));
+			//cv3.setLayoutParams(new LinearLayout.LayoutParams((LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 1.0f));
+			cv4.setLayoutParams(new LinearLayout.LayoutParams((LayoutParams.WRAP_CONTENT), (LayoutParams.WRAP_CONTENT), 1.0f));
+			
 			cv4.setDate(cv4.createCalender(1988, 4, 31));
 			layout.addView(cv3);
 			layout.addView(cv4);
 		}
 
 		// activity_main.xml not used 
-		//cv1 = (CalenderView)findViewById(R.id.calenderView1);
-		//cv2 = (CalenderView)findViewById(R.id.calenderView2);
-		//cv2.setDate(cv4.createCalender(1988, 4, 31));
-
+		cv1 = (CalenderView)findViewById(R.id.calenderView1);
+		cv2 = (CalenderView)findViewById(R.id.calenderView2);
+		
+		//cv2.setDate(cv2.createCalender(1988, 4, 31));
+		
+		/*
+		Calendar newCal = Calendar.getInstance();
+		newCal.set(Calendar.YEAR, 1988);
+		newCal.set(Calendar.MONTH, 4);
+		newCal.set(Calendar.DAY_OF_MONTH, 31);
+		cv2.setDate(newCal);
+		*/
+		//cv1.nextDay();
+		
+		//setContentView(R.layout.activity_main);
 		setContentView(layout);    
 
 		cv3.setOnClickListener(new Button.OnClickListener() {
@@ -84,11 +99,11 @@ public class MainActivity extends Activity {
 
 	public void Cal1Clicked(View v){
 		// activity_main.xml OnClick not used
-		// cv1.nextDay();
+		cv1.nextDay();
 	}
 
 	public void Cal2Clicked(View v){
 		// activity_main.xml OnClick not used
-		// cv2.nextDay();
+		cv2.nextDay();
 	}
 }

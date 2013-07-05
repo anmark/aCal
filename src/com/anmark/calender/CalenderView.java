@@ -17,10 +17,10 @@ import android.view.View;
 
 public class CalenderView extends View {
 
-	private Calendar cal;
-	private Bitmap mOrigBitmap, mScaledBitmap;
-	private Paint paint;
-	private int mOrigBitmapWidth, mOrigBitmapHeight;
+	Calendar cal;
+	Bitmap mOrigBitmap, mScaledBitmap;
+	Paint paint;
+	int mOrigBitmapWidth, mOrigBitmapHeight;
 
 	public CalenderView(Context context) {
 		super(context);
@@ -38,6 +38,7 @@ public class CalenderView extends View {
 	}
 
 	private void init(Context context) {
+		// Init calendar
 		cal = Calendar.getInstance();
 
 		// Create original mutable bitmap from drawable resource
@@ -45,6 +46,11 @@ public class CalenderView extends View {
 				R.drawable.calendar_sheet);
 		mOrigBitmapWidth = 0;
 		mOrigBitmapHeight = 0;
+
+		// Setup paint
+		paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setTextAlign(Align.CENTER);
 	}
 
 	@SuppressLint("DrawAllocation")
@@ -68,38 +74,33 @@ public class CalenderView extends View {
 					paint);
 		}
 
-		// Setup paint
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setTextAlign(Align.CENTER);
-
+	
+		float scaledSize = getResources().getDimensionPixelSize(R.dimen.small_text_size);
+		//float textSize = (getHeight() + getWidth()) * .2f / (4 * scaledSize);
+		float textSize = (getHeight() / 11 );
 		// Draw black bottom day name
-		paint.setTextSize(((canvas.getHeight()) / 180)
-				* getResources().getDimension(R.dimen.small_text_size));
-		canvas.drawText(getDayName(), canvas.getWidth() / 2f,
-				canvas.getHeight() * .9f, paint);
-
+		//paint.setTextSize(scaledSize*((mOrigBitmapWidth * mOrigBitmapHeight)/(this.getBottom()*15)));
+		paint.setTextSize(textSize*.8f);
+		//paint.setTextSize(.00001f * (getHeight() * getHeight()) / scaledSize);
+		
+		canvas.drawText(getDayName(), mOrigBitmapWidth / 2f, mOrigBitmapHeight * .9f, paint);
+		
 		// Draw top white month name
 		paint.setColor(Color.WHITE);
-		canvas.drawText(getMonthName(), canvas.getWidth() / 2f,
-				canvas.getHeight() * .4f, paint);
+		canvas.drawText(getMonthName(), mOrigBitmapWidth / 2f, mOrigBitmapHeight * .4f, paint);
 
 		// Draw black center date
 		paint.setColor(Color.BLACK);
-		paint.setTextSize(((canvas.getHeight()) / 100)
-				* getResources().getDimension(R.dimen.small_text_size));
-		canvas.drawText(Integer.toString(getDayNumber()),
-				canvas.getWidth() / 2f, canvas.getHeight() * .72f, paint);
+		//paint.setTextSize(((canvas.getHeight()) / 100) * getResources().getDimension(R.dimen.small_text_size));
+		canvas.drawText(Integer.toString(getDayNumber()), mOrigBitmapWidth / 2f, mOrigBitmapHeight * .72f, paint);
 
 		// Draw black vertical right year
-		paint.setTextSize(((canvas.getHeight()) / 180)
-				* getResources().getDimension(R.dimen.small_text_size));
-		canvas.rotate(90, canvas.getWidth() * .8f, canvas.getHeight() * .7f);
-		canvas.drawText(Integer.toString(getYear()), canvas.getWidth() * .8f,
-				canvas.getHeight() * .7f, paint);
+		//paint.setTextSize(((canvas.getHeight()) / 180) * getResources().getDimension(R.dimen.small_text_size));
+		//paint.setTextSize(2* getHeight() / scaledSize);
+		paint.setTextSize(textSize * .8f);
+		canvas.rotate(90, mOrigBitmapWidth * .8f, mOrigBitmapHeight * .65f);
+		canvas.drawText(Integer.toString(getYear()), mOrigBitmapWidth * .8f, mOrigBitmapHeight * .65f, paint);
 
-		// Best practice to invalidate here?
-		// postInvalidate();
 	}
 
 	public int getYear() {
@@ -151,7 +152,7 @@ public class CalenderView extends View {
 	 * @param imgIn - Source image. It will be released, and should not be used
 	 * more
 	 * 
-	 * @return a copy of imgIn, but muttable.
+	 * @return a copy of imgIn, but mutable.
 	 * 
 	 * public static Bitmap convertToMutable(Bitmap imgIn) { try { //this is the
 	 * file going to use temporally to save the bytes. // This file will not be
